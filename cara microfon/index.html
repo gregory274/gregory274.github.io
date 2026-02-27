@@ -1,1 +1,39 @@
 
+let mic;
+let volumenSuavizado = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  
+  // Activar micrófono
+  mic = new p5.AudioIn();
+  mic.start();
+}
+
+function draw() {
+  background(220);
+
+  // Leer volumen del micrófono
+  let volumen = mic.getLevel();
+  
+  // Suavizar el movimiento
+  volumenSuavizado = lerp(volumenSuavizado, volumen, 0.2);
+  
+  // Convertir volumen a tamaño de boca
+  let aperturaBoca = map(volumenSuavizado, 0, 0.3, 5, 80);
+  aperturaBoca = constrain(aperturaBoca, 5, 80);
+
+  // --- Cara ---
+  fill(255, 220, 180);
+  noStroke();
+  ellipse(width/2, height/2, 250, 300);
+
+  // Ojos
+  fill(0);
+  ellipse(width/2 - 40, height/2 - 40, 20, 20);
+  ellipse(width/2 + 40, height/2 - 40, 20, 20);
+
+  // Boca (se abre con el volumen)
+  fill(150, 0, 0);
+  ellipse(width/2, height/2 + 50, 100, aperturaBoca);
+}
