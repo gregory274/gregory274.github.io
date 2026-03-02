@@ -1,14 +1,41 @@
-function setup() { 
-  createCanvas(600, 400);//Tamany de l'area de dibuix
-  //El primer número el l'ampliada en pixels i el segon número es l'alçada en pixels.
-  
-  mic=new p5.AudioIn();//El micròfon es una entrada de audio amb p5 
-  mic.start();//Activa el microfon
+function setup() {
+  createCanvas(400, 400);
+}
 
-  function draw() {
-  background(109, 191, 242);//Color del fons del dibuix.
-//El primer número es el nivell de vermell"R", el segon número es el nivell de verd "G" i el tercer número es l'entensitat de blau "B", pero tant color RGB en html. Dintre de background o fons.
-  fill(255, 246, 229);//Color del la cara exterior 
-  //En el cas del fill será al mateix pero el que fa es omplir de color la figura següent que son dos ellipses
-  elipse(300, 200, 200, 250);//Forma de la cara exterior
-  //El primer número es la posicio 
+function draw() {
+  background(220);
+
+  // Cara
+  fill(255, 220, 180);
+  noStroke();
+  ellipse(200, 200, 220, 260);
+
+  // Ojos
+  fill(255);
+  ellipse(150, 180, 50, 30); // ojo izquierdo
+  ellipse(250, 180, 50, 30); // ojo derecho
+
+  // Pupilas (siguen al mouse un poco)
+  fill(0);
+  let pupilX = map(mouseX, 0, width, -8, 8);
+  let pupilY = map(mouseY, 0, height, -5, 5);
+  ellipse(150 + pupilX, 180 + pupilY, 15, 15);
+  ellipse(250 + pupilX, 180 + pupilY, 15, 15);
+
+  // Nariz
+  stroke(120);
+  strokeWeight(2);
+  noFill();
+  arc(200, 210, 30, 40, 0, PI);
+
+  // Boca (sonrisa básica)
+  noFill();
+  stroke(0);
+  strokeWeight(3);
+  arc(200, 250, 100, 60, 0, PI);
+
+  // Cejas
+  strokeWeight(4);
+  line(130, 150, 170, 145);
+  line(230, 145, 270, 150);
+}
